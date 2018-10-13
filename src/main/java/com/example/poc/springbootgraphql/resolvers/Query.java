@@ -41,4 +41,22 @@ public class Query implements GraphQLQueryResolver {
         }
         return new ArrayList<>();
     }
+
+    public User getUser(Long id){
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
+        String url = env.getProperty(APP_URL);
+
+        ResponseEntity<User> responseEntity = restTemplate.exchange(
+                url+"/users/"+String.valueOf(id),
+                HttpMethod.GET,
+                requestEntity,
+                User.class);
+        if (responseEntity.getStatusCode() == HttpStatus.OK) {
+            return responseEntity.getBody();
+        }
+        return new User();
+    }
 }
