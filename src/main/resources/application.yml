@@ -1,0 +1,6 @@
+server:
+  port: 9000
+
+app:
+  common:
+    url: https://jsonplaceholder.typicode.com
